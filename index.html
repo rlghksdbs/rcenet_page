@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Real-Time Super-Resolution.">
+  <meta name="keywords" content="Single Image Super-Resolution, Real-Time Super-Resolution, SISR, RTSR">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RCENet : Recursive Concatenation and Enhancement Network for Real-Time Super-Resolution</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/a.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/rlghksdbs">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://rlghksdbs.github.io/iam-vfi_page">
+            IAM-VFI
+          </a>
+          <a class="navbar-item" href="https://rlghksdbs.github.io/lrsrn_page">
+            LRSRN
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">RCENet : Recursive Concatenation and Enhancement Network for Real-Time Super-Resolution</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=LLLbCIQAAAAJ&hl=ko&oi=sra">Kihwan Yoon</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=PR4pvCMAAAAJ&hl=ko&oi=sra">Ganzorig Gankuyag</a><sup>2†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=-DlLMawAAAAJ&hl=ko&oi=sra">Jinwoo Jeong</a><sup>2†</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>BLUEDOT,</span>
+            <span class="author-block"><sup>2</sup>Korea Electronics Technology Institute</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>†</sup>co-corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/rlghksdbs/CASR.git"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Presentation Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/BDkenaEL7ao"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                  </a>
+              </span>
+              <!-- Poster Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/1VT82c9WSLT6abWeX-eACAgRAtRWBisLk/view"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Poster</span>
+                  </a>
+              </span>
+              <!-- Report Paper. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2404.16484"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Challenge Report</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent advancements in edge AI have increased demand for real-time vision models that run efficiently on the edge devices. 
+            However, the architectural heterogeneity of edge devices in terms of compute structure, memory bandwidth, and supported tasks requires a computer vision network architecture that is optimized for the individual edge device.  
+          </p>
+          <p>
+            Therefore, we present the Recursive Concatenation and Enhancement Network (RCENet), a lightweight and efficient Single Image Super-Resolution (SISR) model optimized for Google Tensor Processing Units (TPUs). 
+            To optimize the architecture for Google TPUs, we first conduct a detailed analysis of the computational characteristics and runtime behavior to inform the network design. 
+            As a result, RCENet leverages hardware-efficient operators and quantization-friendly modules. 
+            We further propose Operator-Selective Quantization (OSQ) combined with Quantization-Aware Distillation (QAD), tailored to the Tensor architecture, to enable deployment on integer-only inference engines without compromising perceptual quality.
+          </p>
+          <p>
+            Extensive experiments on standard benchmarks show that RCENet delivers competitive visual quality with significantly reduced latency and power consumption. 
+            Notably, RCENet achieves over 70 FPS on Google Tensor NPUs while matching the quality of much heavier models. 
+            Our method achieved second place in the Quantized Super-Resolution track of the 2025 MobileAI (MAI) Challenge, demonstrating its effectiveness for real-world deployment.
+            <!-- The code is available at <a href="https://github.com/rlghksdbs/CASR">https://github.com/rlghksdbs/CASR</a> -->
+          </p>
+        </div>
+      </div>
+    </div>
+      <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/BDkenaEL7ao?si=Tq-WVtnOYwxl7mTs" 
+          title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Network Architecture</h2>
+        <image src="./static/images/RCENet.png" class="img-responsive" alt="IAM-VFI"><br>
+        <div class="content has-text-justified">
+          <p>
+            RCENet Overall architecture <br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Qualitative Results</h2>
+        <image src="./static/images/RCENet_visual_result.png" class="img-responsive" alt="IAM-VFI"><br>
+        <image src="./static/images/table3.png" class="img-responsive" alt="IAM-VFI"><br>
+          <div class="content has-text-justified">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Ablation Study</h2>
+        <image src="./static/images/table1.png" class="img-responsive" alt="IAM-VFI"><br>
+          <div class="content has-text-justified">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <!-- Challenge Report. -->
+      <div class="column is-four-fifths">
+          <h2 class="title is-3">MAI2025 Challenge Results</h2>
+          <image src="./static/images/table3.png" class="img-responsive" alt="IAM-VFI"><br>
+        </div>
+      </div>
+      <!--/ Challenge Report. -->
+
+      <!-- Diploma. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">MAI2025 Challenge Diploma</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+
+            </p>
+            <image src="./static/images/Challenge_diploma.PNG" class="img-responsive" alt="IAM-VFI"><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Diploma. -->
+  </section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Acknowledgement</h2>
+        <div class="content has-text-justified">
+          <p>
+            This work was supported by The KEIT(Korea planning \& Evaluation Institute of Industrial Technology) grant funded by the Korea government(MOTIE) 
+            (No.20014107, Development of 3D camera technology with fusion of thermal images to cope with the night and day environment)    
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+    <!-- @InProceedings{Yoon_2024_CVPR,
+        author    = {Yoon, Kihwan and Gankhuyag, Ganzorig and Park, Jinman and Son, Haengseon and Min, Kyoungwon},
+        title     = {CASR: Efficient Cascade Network Structure with Channel Aligned method for 4K Real-Time Single Image Super-Resolution},
+        booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+        month     = {June},
+        year      = {2024},
+        pages     = {7911-7920}
+    } -->
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/rlghksdbs" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is borrowed from <a rel="license"
+            href="https://github.com/nerfies/nerfies.github.io">nerfies</a>
+          </p>
+
+          <p>
+            We thanks the authors of <a rel="license" href="https://github.com/nerfies/nerfies.github.io">nerfies</a>
+             for open-sourcing the template for this website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
